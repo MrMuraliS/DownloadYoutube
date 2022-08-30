@@ -1,4 +1,5 @@
 from pytube import YouTube
+from pytube.cli import on_progress
 
 
 class DownloadYouTube:
@@ -6,7 +7,7 @@ class DownloadYouTube:
     def __init__(self, link):
         self.link = link
         try:
-            self.yt = YouTube(self.link)
+            self.yt = YouTube(self.link, on_progress_callback=on_progress)
             self.formats = self.yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc()
             self.valid = True
         except Exception as error:
@@ -35,4 +36,3 @@ class DownloadYouTube:
         :return:
         """
         self.yt.streams.filter(only_audio=True).desc().first().download()
-

@@ -20,10 +20,12 @@ if __name__ == "__main__":
             else:
                 print("Downloading video..")
                 video.download_video()
+                print()
             print("Video is downloaded successfully. Please check your working directory for the file.\n")
         elif option == 2:
             print("Downloading audio...")
             video.download_audio_only()
+            print()
             print("Audio is downloaded successfully. Please check your working directory for the file.\n")
         print("Thank you for using our services. Please do visit us again.. \N{grinning face}")
 
