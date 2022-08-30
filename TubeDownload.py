@@ -4,12 +4,14 @@ from pytube import YouTube
 class DownloadYouTube:
 
     def __init__(self, link):
-        self.link = input("Please provide the link: ")
+        self.link = link
         try:
             self.yt = YouTube(self.link)
             self.formats = self.yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc()
+            self.valid = True
         except Exception as error:
             print(error)
+            self.valid = False
 
     def all_available_formats(self):
         """
