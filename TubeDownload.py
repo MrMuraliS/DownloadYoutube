@@ -50,11 +50,12 @@ def on_progress(
 
 class DownloadYouTube:
     def __init__(self, link):
+        self.target = None
         self.link = link
         try:
             self.yt = YouTube(self.link, on_progress_callback=on_progress)
             self.formats = (
-                self.yt.streams.filter(progressive=True, file_extension="mp4")
+                self.yt.streams.filter(file_extension="mp4")
                 .order_by("resolution")
                 .desc()
             )
@@ -68,7 +69,12 @@ class DownloadYouTube:
         This will return all the available formats to user, so user can select which one to download.
         :return:
         """
-        return [video.resolution for video in self.formats]
+
+        self.target = {}
+        for video in self.formats:
+            if video.resolution not in self.target:
+                self.target[video.resolution] = video.itag
+        return list(self.target.keys())
 
     def download_video(self, required_format: str = "720p"):
         """
@@ -77,7 +83,9 @@ class DownloadYouTube:
         :param required_format:
         :return:
         """
-        self.formats.get_by_resolution(required_format).download()
+        # self.formats.get_by_resolution(required_format).download()
+        # self.formats.first().download()
+        self.formats.get_by_itag(self.target.get(required_format, "360p")).download()
 
     def download_audio_only(self):
         """
