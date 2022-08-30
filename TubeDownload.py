@@ -55,7 +55,7 @@ class DownloadYouTube:
         try:
             self.yt = YouTube(self.link, on_progress_callback=on_progress)
             self.formats = (
-                self.yt.streams.filter(file_extension="mp4")
+                self.yt.streams.filter(progressive=True, file_extension="mp4")
                 .order_by("resolution")
                 .desc()
             )
@@ -73,6 +73,8 @@ class DownloadYouTube:
         self.target = {}
         for video in self.formats:
             if video.resolution not in self.target:
+                self.target[video.resolution] = video.itag
+            else:
                 self.target[video.resolution] = video.itag
         return list(self.target.keys())
 
