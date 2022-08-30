@@ -21,14 +21,21 @@ if __name__ == "__main__":
                 print("Downloading video..")
                 video.download_video()
                 print()
-            print("Video is downloaded successfully. Please check your working directory for the file.\n")
+            print(
+                "Video is downloaded successfully. Please check your working directory for the file.\n"
+            )
         elif option == 2:
             print("Downloading audio...")
             video.download_audio_only()
             print()
-            print("Audio is downloaded successfully. Please check your working directory for the file.\n")
-        print("Thank you for using our services. Please do visit us again.. \N{grinning face}")
+            print(
+                "Audio is downloaded successfully. Please check your working directory for the file.\n"
+            )
+        print(
+            "Thank you for using our services. Please do visit us again.. \N{grinning face}"
+        )
 
     else:
-        print("\nWe couldn't find data with the given YouTube URL. Please try back again.. \N{upside-down face}")
-
+        print(
+            "\nWe couldn't find data with the given YouTube URL. Please try back again.. \N{upside-down face}"
+        )
